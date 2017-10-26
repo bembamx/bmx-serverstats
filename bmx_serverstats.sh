@@ -26,15 +26,19 @@ echo " $BMXFINWAIT"
 
 echo " "
 
-BMXBAND="$(cat /proc/net/dev | grep "em1" | tr -s " ")"
-BMXBOUT="$(echo $BMXBAND | cut -d " " -f2)"
-BMXBIN="$(echo $BMXBAND | cut -d " " -f10)"
+# Cambia esto a la interfaz de red que quieras medir
+BMXINTERFACE="em1"
+
+
+BMXBAND="$(cat /proc/net/dev | grep "$BMXINTERFACE" | tr -s " ")"
+BMXBIN="$(echo $BMXBAND | cut -d " " -f2)"
+BMXBOUT="$(echo $BMXBAND | cut -d " " -f10)"
 
 sleep 1s
 
-BMXBAND2="$(cat /proc/net/dev | grep "em1" | tr -s " ")"
-BMXBOUT2="$(echo $BMXBAND2 | cut -d " " -f2)"
-BMXBIN2="$(echo $BMXBAND2 | cut -d " " -f10)"
+BMXBAND2="$(cat /proc/net/dev | grep "$BMXINTERFACE" | tr -s " ")"
+BMXBIN2="$(echo $BMXBAND2 | cut -d " " -f2)"
+BMXBOUT2="$(echo $BMXBAND2 | cut -d " " -f10)"
 
 echo "TRANSFER-OUT"
 BMXRATEOUT="$(($BMXBOUT2 - $BMXBOUT))"
