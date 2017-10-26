@@ -1,8 +1,8 @@
 #!/bin/bash
 # Script hecho por Tony Cárdenas
-# tony@bemba.mx	// www.bemba.mx
+# tony@bemba.mx // www.bemba.mx
 # 2017
-# Under GNU General Public License v3.0
+# 
 
 
 echo "Load Average:"
@@ -39,3 +39,21 @@ BMXBIN2="$(echo $BMXBAND2 | cut -d " " -f10)"
 echo "TRANSFER-OUT"
 BMXRATEOUT="$(($BMXBOUT2 - $BMXBOUT))"
 echo " $(echo $BMXRATEOUT | awk '{ foo = $1 / 1024 / 1024 ; print foo " MB" }')"
+
+echo "TRANSFER-IN"
+BMXRATEIN="$(($BMXBIN2 - $BMXBIN))"
+echo " $(echo $BMXRATEIN | awk '{ foo = $1 / 1024 / 1024 ; print foo " MB" }')"
+
+echo " "
+echo "DISCO DURO"
+
+BMXHD="$(df -h | grep "% /$" | tr -s " ")"
+BMXHDTOTAL="$(echo $BMXHD | cut -d " " -f2)"
+BMXHDUSADO="$(echo $BMXHD | cut	-d " " -f3)"
+BMXHDDISPON="$(echo $BMXHD | cut	-d " " -f4)"
+BMXHDPERC="$(echo $BMXHD | cut	-d " " -f5)"
+echo " $BMXHDUSADO / $BMXHDTOTAL [$BMXHDPERC]"
+
+echo " "
+echo "USUARIOS SSH"
+echo "$(who | tr -s " " | cut -d " " -f1,2)"
